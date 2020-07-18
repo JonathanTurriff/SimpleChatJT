@@ -98,7 +98,7 @@ public class EchoServer extends AbstractServer
   /**
    * This method handles any command received from the Server Console.
    *
-   * @param msg The message received from the client.
+   * @param message The message received from the client.
    */
   public void handleServerCommands(String message) throws IOException{
 
@@ -187,8 +187,8 @@ public class EchoServer extends AbstractServer
    */
   synchronized protected void clientException(
      ConnectionToClient client, Throwable exception) {
-       sendToAllClients("New Disconnection: "+ client.getInfo("loginID"));
-       System.out.println( client.getInfo("loginID")+ "Has disconnected.");
+       sendToAllClients( client.getInfo("loginID")+" Has disconnected");
+       System.out.println( client.getInfo("loginID")+ " Has disconnected.");
     }
     synchronized protected void clientDisconnected(
        ConnectionToClient client) {

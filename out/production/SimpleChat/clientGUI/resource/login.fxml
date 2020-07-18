@@ -10,30 +10,40 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.5" prefHeight="350.0" prefWidth="250.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="158.0" layoutX="55.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="158.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@SimpleChatJT.png" />
          </image>
       </ImageView>
-      <Label layoutX="57.0" layoutY="175.0" prefHeight="17.0" prefWidth="137.0" text="Enter Username:" textFill="WHITE">
+      <Label fx:id="label1" layoutX="46.0" layoutY="175.0" prefHeight="17.0" prefWidth="137.0" text="Enter Username:" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="51.0" layoutY="192.0" prefHeight="25.0" prefWidth="158.0" promptText="Username..." style="-fx-background-color: #878683; -fx-text-fill: #FFFFFF;">
+      <TextField fx:id="textField1" layoutX="46.0" layoutY="192.0" prefHeight="25.0" prefWidth="158.0" promptText="Username..." style="-fx-background-color: #878683; -fx-text-fill: #FFFFFF;">
          <font>
             <Font name="Times New Roman Bold" size="12.0" />
          </font></TextField>
-      <TextField layoutX="51.0" layoutY="238.0" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: #878683; -fx-text-fill: #FFFFFF;" text="5555">
+      <TextField fx:id="testField2" layoutX="46.0" layoutY="234.0" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: #878683; -fx-text-fill: #FFFFFF;" text="5555">
          <font>
             <Font name="Times New Roman Bold" size="12.0" />
          </font></TextField>
-      <Label layoutX="57.0" layoutY="221.0" prefHeight="17.0" prefWidth="137.0" text="Port:" textFill="WHITE">
+      <Label fx:id="label2" layoutX="46.0" layoutY="217.0" prefHeight="17.0" prefWidth="137.0" text="Port:" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="12.0" />
          </font>
       </Label>
       <AnchorPane layoutX="78.0" layoutY="274.0" />
-      <Button layoutX="100.0" layoutY="290.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Login" />
+      <Button fx:id="button1" layoutX="100.0" layoutY="311.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="25.0" prefWidth="50.0" text="Login" />
+      <TextField fx:id="testField3" layoutX="46.0" layoutY="274.0" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: #878683; -fx-text-fill: #FFFFFF;" text="localhost">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </TextField>
+      <Label fx:id="label21" layoutX="46.0" layoutY="259.0" prefHeight="17.0" prefWidth="137.0" text="Host:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
