@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import src.serverGUI.sample.*;
+
 
 /**
  * This is the main class where the Client Starts,

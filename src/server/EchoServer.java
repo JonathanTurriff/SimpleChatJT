@@ -101,6 +101,11 @@ public class EchoServer extends AbstractServer
     }
   }
 
+  /**This is one of my modifications @Jonathan Turriff
+   * This function sends to a client who has just joined the chat a list of who is present in the server
+   * @param client is the variable where I send the information
+   * @throws IOException when initializing new variables.
+   */
   public void sendClientList(ConnectionToClient client) throws IOException {
     String cList = "Clients Connected: ";
     Thread[] list = getClientConnections();
