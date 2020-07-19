@@ -1,8 +1,10 @@
-// This file contains material supporting section 3.7 of the textbook:
+package server;// This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com
-
 import java.io.*;
+
+import com.sun.javafx.iio.ios.IosDescriptor;
+import common.ChatIF;
 import ocsf.server.*;
 
 /**
@@ -23,6 +25,7 @@ public class EchoServer extends AbstractServer
    * The default port to listen on.
    */
   final public static int DEFAULT_PORT = 5555;
+  public ChatIF server;
 
   //I couldn't figure out how to determine if the server is closed or not because isClosed() isnt working so i just used booleans
   private boolean stopped;
@@ -35,9 +38,10 @@ public class EchoServer extends AbstractServer
    *
    * @param port The port number to connect on.
    */
-  public EchoServer(int port)
+  public EchoServer(int port, ChatIF server)
   {
     super(port);
+    this.server = server;
     stopped = false;
     closed = false;
   }
@@ -58,19 +62,20 @@ public class EchoServer extends AbstractServer
       if(client.getInfo("loginID") == null){
         client.setInfo("loginID", command[1]);
         sendToAllClients(client.getInfo("loginID") +" Has Logged in.");
-        System.out.println("New Connection: " +client.getInfo("loginID"));
+        sendClientList(client);
+        server.display("New Connection: " +client.getInfo("loginID"));
       }else if(command[0].equals("#login")){
         client.sendToClient("Error: You have already logged in");
-        System.out.println("New Disconnection: " +client.getInfo("loginID"));
+        server.display("New Disconnection: " +client.getInfo("loginID"));
         sendToAllClients(client.getInfo("loginID")+" Has Disconnected.");
         client.close();
       }else{
-      System.out.println("Message received: " + msg + " from " + client+", loginID: "+client.getInfo("loginID"));
+        server.display("Message received: " + msg + " from " + client+", loginID: "+client.getInfo("loginID"));
       this.sendToAllClients(client.getInfo("loginID")+": "+msg);
       }
   }
     catch(IOException e){
-      System.out.println("Error: Could not send message to server.");
+      server.display("Error: Could not send message to server.");
     }
     }
   /**
@@ -86,12 +91,35 @@ public class EchoServer extends AbstractServer
     if(msg.substring(0,1).equals("#")){
       handleServerCommands(msg);//new command i made to handle the # commands to have the code clean
     }else{
-      System.out.println("SERVER MSG> "+msg);
+      server.display("SERVER MSG> "+msg);
       sendToAllClients("SERVER MSG> "+ msg);
     }
     }catch(IOException e){
-      System.out.println("Error: Could not send message to server.");
+      server.display("Error: Could not send message to server.");
 
+    }
+  }
+
+  public void sendClientList(ConnectionToClient client) throws IOException {
+    String cList = "Clients Connected: ";
+    Thread[] list = getClientConnections();
+    if(list.length == (1)){
+      client.sendToClient("There are no other connections.");
+      return;
+    }
+    try {
+      for(int i = 0; i<list.length; i++) {
+        ConnectionToClient C = (ConnectionToClient) getClientConnections()[i];
+        if(cList.equals("Clients Connected: ")){
+          cList = cList + C.getInfo("loginID");
+        }else{
+          cList = cList +" , "+ C.getInfo("loginID");
+        }
+      }
+      client.sendToClient(cList);
+
+    }catch(Exception e){
+      return;
     }
   }
 
@@ -100,12 +128,13 @@ public class EchoServer extends AbstractServer
    *
    * @param message The message received from the client.
    */
+
   public void handleServerCommands(String message) throws IOException{
 
     String[] command = message.split(" ");
 
     if(command[0].equals("#quit")){
-      System.out.println("Closing ServerConsole...");
+      server.display("Closing ServerConsole...");
       sendToAllClients("SERVER MSG> Server is closing...");
       close();
       System.exit(0);
@@ -114,33 +143,33 @@ public class EchoServer extends AbstractServer
       stopListening();
     }else if (command[0].equals("#close")){
       sendToAllClients("SERVER MSG> Server is closing...");
-      System.out.println("Server is now closed.");
+      server.display("Server is now closed.");
       closed = true;
       stopped = true;
       close();
     }else if (command[0].equals("#setport")){
       if(!closed){
-        System.out.println("Error: You can't change hosts if you're already connected to port " + getPort());
+        server.display("Error: You can't change hosts if you're already connected to port " + getPort());
       }else{
         try{
         setPort(Integer.parseInt(command[1]));
-        System.out.println("You are now set to: "+ getPort());
+          server.display("You are now set to: "+ getPort());
       }catch(Exception e){
-        System.out.println("Error: Invalid arguments. Try again.");
+          server.display("Error: Invalid arguments. Try again.");
       }
     }
     }else if (command[0].equals("#getport")){
-      System.out.println("You're connected to host " + getPort());
+      server.display("You're connected to host " + getPort());
     }else if(command[0].equals("#start")){
       if(stopped){
         listen();
         stopped = false;
         closed = false;
       }else{
-        System.out.println("Server is already started.");
+        server.display("Server is already started.");
       }
     }else{
-      System.out.println("SERVER MSG> "+message);
+      server.display("SERVER MSG> "+message);
       sendToAllClients("SERVER MSG> "+ message);
     }
   }
@@ -151,8 +180,7 @@ public class EchoServer extends AbstractServer
    */
   protected void serverStarted()
   {
-    System.out.println
-      ("Server listening for connections on port " + getPort());
+    server.display("Server listening for connections on port " + getPort());
   }
 
   /**
@@ -161,7 +189,7 @@ public class EchoServer extends AbstractServer
    */
   protected void serverStopped()
   {
-    System.out.println
+    server.display
       ("Server has stopped listening for connections.");
   }
 
@@ -185,15 +213,17 @@ public class EchoServer extends AbstractServer
   * @param client the client that raised the exception.
   * @param Throwable the exception thrown.
    */
+  @Override
   synchronized protected void clientException(
-     ConnectionToClient client, Throwable exception) {
+     ConnectionToClient client, Throwable exception){
        sendToAllClients( client.getInfo("loginID")+" Has disconnected");
-       System.out.println( client.getInfo("loginID")+ " Has disconnected.");
+       server.display( client.getInfo("loginID")+ " Has disconnected.");
     }
     synchronized protected void clientDisconnected(
        ConnectionToClient client) {
-         System.out.println("New Disconnection: "+ client.getInfo("loginID"));
+      server.display("New Disconnection: "+ client.getInfo("loginID"));
       }
+
 //Got rid of Main in this class to implement it in ServerConsole.java
 }
 //End of EchoServer class
