@@ -53,6 +53,10 @@ public class StartController {
              * Lets me transfer the port information from one scene to another using the transferPort function.
              */
             ConsoleController controller = loader.getController();
+            if(Integer.parseInt(textField.getText())>65535 ||Integer.parseInt(textField.getText())<0 ){
+                AlertBox.display("Error", "Enter a valid port");
+                return;
+            }
             try {
                 controller.transferPort(Integer.parseInt(textField.getText()));
             }catch(NumberFormatException n){
