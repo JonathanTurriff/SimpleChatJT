@@ -1,8 +1,7 @@
 package src.clientGUI;
 
-import javafx.event.ActionEvent;
+
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,8 +9,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AlertBox {
+/**
+ * This class is a AlertBox class that pops up when you get a ConnectionError.
+ * Closes the system once you press the "OK" Button.
+ *
+ * @author Jonathan Turriff
+ * @version JT.1.0
+ */
 
+public class AlertBox {
+    /**
+     * Displays an error window and closes the system after the press of the "OK" button.
+     * @param title is what the window is going to be called.
+     * @param message is the error message.
+     */
     public static void display(String title, String message){
 
         Stage window = new Stage();
