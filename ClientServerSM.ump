@@ -1,0 +1,264 @@
+class Client
+{
+
+  queued clientSM{
+  notRunning{
+     entry/{System.out.println("Client isn't running");}
+    after(1) -> login;
+  }
+  login{
+    entry/ {System.out.println("Client on login screen");};
+    login -> chatting;
+    closedClient -> notRunning;
+  }
+  chatting{
+    entry/ {System.out.println("Client ChatBox Open");};
+    logout -> login;
+    closedClient -> notRunning;
+  }
+  }
+  public static void main(String[] args){
+    Client client = new Client();
+while(true){
+  
+  System.out.println("Input your commands (c,  li, lo)");
+  Scanner s = new Scanner(System.in);
+    String command;
+    command = s.nextLine();
+      switch(command) {
+
+        case "c": 
+        client.closedClient();
+        break;
+  
+        case "li": 
+        client.login();
+        break;
+        
+        case "lo": 
+        client.logout();
+        break;      
+        
+        default:
+          break;
+      }
+    }
+  }
+}
+
+class Server
+{
+  queued serverSM{
+  notRunning{
+    entry/{System.out.println("Server isn't running");}
+    after(1) -> start;
+  }
+  start{
+    entry/ {System.out.println("Server Started");};
+    started  -> console;
+  }
+  console{
+    entry/ {System.out.println("Server Console listening");};
+    stopped -> start;
+    closedServer -> notRunning;
+    stoppedListening -> consoleNotListening;
+  }
+    consoleNotListening{
+      entry/ {System.out.println("Server Console Stopped Listening");};
+      closedServer -> notRunning;
+      startedListening -> console;
+      stopped -> start;
+    }
+  }
+  
+  public static void main(String[] args){
+   Server server = new Server();
+while(true){
+  System.out.println("Input your commands (st, s, c,  sl, l)");
+  Scanner s = new Scanner(System.in);
+    String command;
+    command = s.nextLine();
+      switch(command) {
+        case "s":
+        server.started();
+        break;
+        
+        case "c": 
+        server.closedServer();
+        break;
+  
+        case "sl": 
+        server.stoppedListening();
+        break;
+        
+        case "l": 
+        server.startedListening();
+        break;
+        
+        case "st":
+        server.stopped();
+        break;
+        
+       
+        
+        default:
+          break;
+      }
+    }
+  }
+}
+
+
+
+namespace -;
+
+
+class Client
+{
+  position 160 170 109 28;
+}
+
+class Server
+{
+  position 279 328 109 41;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Server
+{
+  position 50 130 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}
+
+class Client
+{
+  position 50 30 109 45;
+}//$?[End_of_model]$?
