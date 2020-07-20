@@ -12,9 +12,7 @@ import java.net.ConnectException;
 
 
 public class LoginController {
-    //Instance variable
 
-    public boolean error =false;
     //GUI variables
     /**
      *This is the equivalent of textField1 in login.fxml
@@ -44,7 +42,7 @@ public class LoginController {
      * @throws IOException because it is creating new instances.
      */
     @FXML
-    public void handleAction(ActionEvent event) throws IOException, ConnectException {
+    public void handleAction(ActionEvent event) throws IOException, ConnectException, NumberFormatException{
         try {
             /**
              * Creates a new FXML loader which load the fxml files to change stages and scenes.
@@ -57,16 +55,25 @@ public class LoginController {
              * to the next. If someone doesnt enter a loginID, it is User as default.
              */
             ChatBoxController controller = loader.getController();
-            if(textField1.getText().equals("")) {
-                controller.transferMessage("User", Integer.parseInt(textField2.getText()), textField3.getText());
-            }else {
-                controller.transferMessage(textField1.getText(), Integer.parseInt(textField2.getText()), textField3.getText());
+            try {
+                if (textField1.getText().equals("")) {
+                    controller.transferMessage("User", Integer.parseInt(textField2.getText()), textField3.getText());
+                } else {
+                    controller.transferMessage(textField1.getText(), Integer.parseInt(textField2.getText()), textField3.getText());
+                }
+            }
+            catch(NumberFormatException n){
+                AlertBox.display("Error", "Enter a valid port.");
+                return;
             }
             /**
              * This line initializes the ClientChat variable inside of ChatBoxController so it can start talking to the server.
              */
 
             controller.start();
+            if(controller.getError()){
+                return;
+            }
 
 
             /**
@@ -85,9 +92,6 @@ public class LoginController {
 
 
 
-    }
-    public void setError(boolean bool){
-        error = bool;
     }
 
     @FXML

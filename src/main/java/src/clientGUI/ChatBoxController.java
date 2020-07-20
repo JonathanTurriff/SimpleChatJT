@@ -23,6 +23,8 @@ import java.net.ConnectException;
 public class ChatBoxController implements ChatIF {
 
     //Instance variables
+
+    public boolean error = false;
     /**
      *This is the Chat Client by which the ChatBox will be connecting to the server.
      */
@@ -124,6 +126,12 @@ public class ChatBoxController implements ChatIF {
         textField.setText("");
     }
 
+    public void setError(boolean err){
+        error = err;
+    }
+    public boolean getError(){
+        return error;
+    }
 
 
 }

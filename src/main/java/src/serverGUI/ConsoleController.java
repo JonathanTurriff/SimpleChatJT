@@ -22,6 +22,7 @@ import java.io.IOException;
 public class ConsoleController implements ChatIF {
 
     //Instance variables
+    private boolean error = false;
     /**
      *
      */
@@ -90,7 +91,7 @@ public class ConsoleController implements ChatIF {
     public void handleClick(ActionEvent event) throws IOException {
         try {
             server.close();
-            Parent rooted = FXMLLoader.load(getClass().getResource("../../../../resources/src/serverGUI/start.fxml"));
+            Parent rooted = FXMLLoader.load(getClass().getResource("start.fxml"));
             Scene scene = new Scene(rooted, 473, 183);
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setTitle("SimpleChat Server Starter");
@@ -106,6 +107,10 @@ public class ConsoleController implements ChatIF {
     public void onEnter(ActionEvent ae){
         server.handleMessageFromServer(textField.getText());
         textField.setText("");
+    }
+
+    public void setError(boolean err){
+        error = err;
     }
 
 

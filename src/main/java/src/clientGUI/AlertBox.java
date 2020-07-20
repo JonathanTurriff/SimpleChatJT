@@ -18,6 +18,7 @@ import javafx.stage.Stage;
  */
 
 public class AlertBox {
+
     /**
      * Displays an error window and closes the system after the press of the "OK" button.
      * @param title is what the window is going to be called.
@@ -29,10 +30,9 @@ public class AlertBox {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
-
         Label label = new Label(message);
         Button closeButton = new Button("Ok");
-        closeButton.setOnAction(e -> System.exit(0));
+        closeButton.setOnAction(e -> window.close());
         VBox layout = new VBox();
         layout.getChildren().addAll(label,closeButton);
         layout.setAlignment(Pos.CENTER);
@@ -41,4 +41,6 @@ public class AlertBox {
         window.showAndWait();
 
     }
+
+
 }

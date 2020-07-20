@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import src.clientGUI.AlertBox;
 import src.serverGUI.ConsoleController;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class StartController {
      * @throws IOException because it is creating new instances.
      */
     @FXML
-    public void handleAction(ActionEvent event) throws IOException {
+    public void handleAction(ActionEvent event) throws IOException, NumberFormatException{
         try {
 
             /**
@@ -52,7 +53,12 @@ public class StartController {
              * Lets me transfer the port information from one scene to another using the transferPort function.
              */
             ConsoleController controller = loader.getController();
-            controller.transferPort(Integer.parseInt(textField.getText()));
+            try {
+                controller.transferPort(Integer.parseInt(textField.getText()));
+            }catch(NumberFormatException n){
+                AlertBox.display("Error", "Enter a valid port");
+                return;
+            }
 
             /**
              * The rest of the code changes the scene size and the stage so it can change from the Login to the ChatBox.

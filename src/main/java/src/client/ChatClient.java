@@ -53,7 +53,7 @@ public class ChatClient extends AbstractClient
       sendToServer("#login "+loginID);
     }catch(IOException e){
       AlertBox.display("Error","Could not connect to server, try again.");
-
+      clientUI.setError(true);
     }
 
   }

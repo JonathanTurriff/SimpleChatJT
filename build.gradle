@@ -33,4 +33,4 @@ jar {
 
 
 // Change this to src.ServerConsole if you want serverConsole
-mainClassName = 'src.ServerConsole'
+mainClassName = 'src.ClientConsole'
