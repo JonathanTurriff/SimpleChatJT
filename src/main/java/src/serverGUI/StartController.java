@@ -59,7 +59,7 @@ public class StartController {
              */
             Scene scene = new Scene(rooted, 600, 400);
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setTitle("SimpleChat");
+            window.setTitle("SimpleChat Console");
             window.setScene(scene);
             window.show();
             controller.star();
