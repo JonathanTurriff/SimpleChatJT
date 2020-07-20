@@ -23,7 +23,9 @@ import java.net.ConnectException;
 public class ChatBoxController implements ChatIF {
 
     //Instance variables
-
+    /**
+     * This is used for errors when passing from one controller to another.
+     */
     public boolean error = false;
     /**
      *This is the Chat Client by which the ChatBox will be connecting to the server.
@@ -121,14 +123,27 @@ public class ChatBoxController implements ChatIF {
         }
     }
 
+    /**
+     * When someone presses enter it displays the chat in the chatbox by sending it to the server
+     * @param ae is the event of pressing the enter button.
+     */
     public void onEnter(ActionEvent ae){
         client.handleMessageFromClientUI(textField.getText());
         textField.setText("");
     }
 
+    /**
+     * Sets the value of the error
+     * @param err is the value of the error
+     */
     public void setError(boolean err){
         error = err;
     }
+
+    /**
+     * Returns the value of the error;
+     * @return error;
+     */
     public boolean getError(){
         return error;
     }

@@ -18,6 +18,10 @@ public interface ChatIF
    * Method that when overriden is used to display objects onto
    * a UI.
    */
-  public abstract void setError(boolean err);
   public abstract void display(String message);
+  /**
+   * Method I added to simplify the Error messages in Controllers of fxml files
+   * @Auther Jonathan Turriff
+   */
+  public abstract void setError(boolean err);
 }

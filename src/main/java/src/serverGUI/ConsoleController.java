@@ -103,14 +103,29 @@ public class ConsoleController implements ChatIF {
         }
     }
 
-
+    /**
+     * Sends the message to the server when you press enter on the textField. Shows up in chatbox and clears textField
+     * @param ae is the event of pressing enter
+     */
     public void onEnter(ActionEvent ae){
         server.handleMessageFromServer(textField.getText());
         textField.setText("");
     }
 
+    /**
+     * Sets the error value.
+     * @param err is the boolean value of the error.
+     */
     public void setError(boolean err){
         error = err;
+    }
+
+    /**
+     * Returns the value of error
+     * @return the boolean value of error
+     */
+    public boolean getError(){
+        return error;
     }
 
 

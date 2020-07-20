@@ -72,6 +72,7 @@ public class LoginController {
 
             controller.start();
             if(controller.getError()){
+                controller.setError(false);
                 return;
             }
 
