@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.ConnectException;
 
 /**
  * This class is a Controller class for the fxml file called chatBox.fxml in the resource folder.
@@ -72,7 +73,7 @@ public class ChatBoxController implements ChatIF {
     /**
      * this functions initializes the ChatClient and connects it to the main server.
      */
-    public void start(){
+    public void start() throws IOException{
         try
         {
             client= new ChatClient(host, port, this, loginID);
@@ -80,8 +81,7 @@ public class ChatBoxController implements ChatIF {
         }
         catch(IOException exception)
         {
-            System.out.println("Cannot open connection.  Awaiting command.");
-
+            System.err.println(exception);
         }
     }
 

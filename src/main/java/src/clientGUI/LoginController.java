@@ -8,10 +8,13 @@ import javafx.stage.Stage;
 import src.clientGUI.ChatBoxController;
 
 import java.io.IOException;
+import java.net.ConnectException;
 
 
 public class LoginController {
+    //Instance variable
 
+    public boolean error =false;
     //GUI variables
     /**
      *This is the equivalent of textField1 in login.fxml
@@ -41,7 +44,7 @@ public class LoginController {
      * @throws IOException because it is creating new instances.
      */
     @FXML
-    public void handleAction(ActionEvent event) throws IOException {
+    public void handleAction(ActionEvent event) throws IOException, ConnectException {
         try {
             /**
              * Creates a new FXML loader which load the fxml files to change stages and scenes.
@@ -62,7 +65,10 @@ public class LoginController {
             /**
              * This line initializes the ClientChat variable inside of ChatBoxController so it can start talking to the server.
              */
+
             controller.start();
+
+
             /**
              * The rest of the code changes the scene size and the stage so it can change from the Login to the ChatBox.
              */
@@ -72,11 +78,16 @@ public class LoginController {
             window.setScene(scene);
             window.show();
         }
-        catch(IOException ex){
-            System.err.println(ex);
+        catch(IOException e){
+            System.err.println(e);
+
         }
 
 
+
+    }
+    public void setError(boolean bool){
+        error = bool;
     }
 
     @FXML

@@ -4,9 +4,11 @@
 
 package src.client;
 
+import src.clientGUI.AlertBox;
 import src.ocsf.client.*;
 import src.common.*;
 import java.io.*;
+import java.net.ConnectException;
 
 /**
  * This class overrides some of the methods defined in the abstract
@@ -41,7 +43,7 @@ public class ChatClient extends AbstractClient
    */
 
   public ChatClient(String host, int port, ChatIF clientUI, String loginID)
-    throws IOException
+    throws IOException, ConnectException
   {
     super(host, port); //Call the superclass constructor
     this.clientUI = clientUI;
@@ -50,8 +52,8 @@ public class ChatClient extends AbstractClient
       openConnection();
       sendToServer("#login "+loginID);
     }catch(IOException e){
-      System.err.println(e);
-      clientUI.display("Error: Cannot open connection.  Awaiting command.");
+      AlertBox.display("Error","Could not connect to server, try again.");
+
     }
 
   }
