@@ -29,7 +29,7 @@ public class StartController {
     /**
      *This button is the Start button, when pressed it activated the handleAction method which starts the server.
      */
-    Button button1;
+            Button button1;
 
 
     /**
@@ -53,16 +53,17 @@ public class StartController {
              * Lets me transfer the port information from one scene to another using the transferPort function.
              */
             ConsoleController controller = loader.getController();
-            if(Integer.parseInt(textField.getText())>65535 ||Integer.parseInt(textField.getText())<0 ){
-                AlertBox.display("Error", "Enter a valid port");
-                return;
-            }
             try {
-                controller.transferPort(Integer.parseInt(textField.getText()));
+                Integer.parseInt(textField.getText());
             }catch(NumberFormatException n){
                 AlertBox.display("Error", "Enter a valid port");
                 return;
             }
+            if(Integer.parseInt(textField.getText())>65535 ||Integer.parseInt(textField.getText())<0 ){
+                AlertBox.display("Error", "Enter a valid port");
+                return;
+            }
+            controller.transferPort(Integer.parseInt(textField.getText()));
 
             /**
              * The rest of the code changes the scene size and the stage so it can change from the Login to the ChatBox.
